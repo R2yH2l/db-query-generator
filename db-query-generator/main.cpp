@@ -1,3 +1,8 @@
+/* db-query-generator
+* Author: R2yH2l
+* Purpose: Generate query data for use in machine learning
+*/
+
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -69,10 +74,11 @@ int main() {
         // Print the generated queries
         std::wstring previous_table{};
         for (const auto& kv : queries) {
+            // Sort to make output look better
             std::sort(queries[kv.first].begin(), queries[kv.first].end());
 
             std::wcout << "\n-- Table: " << kv.first << " --\n";
-            for (const auto& qi : kv.second) {
+            for (const auto& qi : queries[kv.first]) {
                 std::wcout << qi.query << '\n';
             }
         }
