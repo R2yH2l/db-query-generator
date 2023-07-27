@@ -164,6 +164,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="parser.cpp" />
+    <ClCompile Include="sql_statement_factory.cpp" />
+    <ClCompile Include="sql_statements.cpp" />
+    <ClCompile Include="sql_statements.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="parser.h" />
+    <ClInclude Include="sql_statement_factory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
