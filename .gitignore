@@ -363,4 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Other
-.schema
+generated_data/

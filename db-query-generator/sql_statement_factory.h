@@ -86,11 +86,25 @@ public:
     std::shared_ptr<sql_statement> create_filter_statement(const std::wstring& table, const std::wstring& column, const std::wstring& operation, const std::wstring& value);
 
     /**
-     * @brief Generates and prints all created SQL statements.
+     * @brief Generates all created SQL statements and their corresponding labels.
      * 
-     * @return Vector of wstring each of which is a SQL statement
+     * @return Vector of wstring each of which is a SQL statement or label.
+     */
+    std::vector<std::wstring> generate_all();
+
+    /**
+     * @brief Generates all created SQL statements.
+     *
+     * @return Vector of wstring each of which is a SQL statement.
      */
     std::vector<std::wstring> generate_all_sql();
+
+    /**
+     * @brief Generates all created SQL statements' labels.
+     *
+     * @return Vector of wstring each of which is a label.
+     */
+    std::vector<std::wstring> generate_all_labels();
 };
 
 #endif // !_SQL_STATEMENT_FACTORY_H

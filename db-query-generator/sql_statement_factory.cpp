@@ -28,12 +28,35 @@ std::shared_ptr<sql_statement> sql_statement_factory::create_filter_statement(co
     return stmt; // Return the created statement
 }
 
-// Generates all SQL statements and prints them
+// Generates all SQL statements and Labels
+std::vector<std::wstring>  sql_statement_factory::generate_all() {
+    std::vector<std::wstring> sql{};
+
+    for (const auto& stmt : statements) {
+        sql.emplace_back(stmt->generate_sql());
+        sql.emplace_back(stmt->generate_label());
+    }
+
+    return sql;
+}
+
+// Generates all SQL statements
 std::vector<std::wstring>  sql_statement_factory::generate_all_sql() {
     std::vector<std::wstring> sql{};
 
     for (const auto& stmt : statements) {
-        sql.emplace_back(stmt->generate_sql()); // Generate the SQL and print it
+        sql.emplace_back(stmt->generate_sql());
+    }
+
+    return sql;
+}
+
+// Generates all labels
+std::vector<std::wstring> sql_statement_factory::generate_all_labels() {
+    std::vector<std::wstring> sql{};
+
+    for (const auto& stmt : statements) {
+        sql.emplace_back(stmt->generate_label());
     }
 
     return sql;

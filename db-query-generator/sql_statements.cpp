@@ -1,6 +1,29 @@
 #include "sql_statements.h"
 #include <iostream>
 
+const wchar_t* operator_to_string(std::wstring op) {
+    if (op == L"=") {
+        return L"EQUALS";
+    }
+    if (op == L"!=") {
+        return L"NOT_EQUALS";
+    }
+    if (op == L">") {
+        return L"GREATER";
+    }
+    if (op == L"<") {
+        return L"LESS";
+    }
+    if (op == L">=") {
+        return L"GREATER_EQUALS";
+    }
+    if (op == L"<=") {
+        return L"LESS_EQUALS";
+    }
+
+    return L"UNKNOWN";
+}
+
 // --------------------
 // START OF SELECT FUNCTIONS
 // --------------------
@@ -28,8 +51,23 @@ std::wstring select_statement::generate_sql() const {
         if (i != columns.size() - 1) ss << L", "; // Add a comma separator unless it's the last column
     }
 
-    ss << L" FROM " << table << L";"; // Add the table name
-    return ss.str(); // Convert the string stream to a string
+    ss << L" FROM " + table + L";"; // Add the table name
+
+    return ss.str();
+}
+
+std::wstring select_statement::generate_label() const {
+    std::wostringstream ss{};
+
+    ss << L"select_" + table + L'_';
+
+    // Loop through each column
+    for (size_t i{}; i < columns.size(); i++) {
+        ss << columns[i];
+        if (i != columns.size() - 1) ss << L'_'; // Add a underscore separator unless it's the last column
+    }
+
+    return ss.str();
 }
 
 // --------------------
@@ -47,8 +85,18 @@ void select_all_statement::set_table(const std::wstring& table) {
 // Generates the SQL select all statement
 std::wstring select_all_statement::generate_sql() const {
     std::wostringstream ss{};
+
     ss << L"SELECT * FROM " << table << L";"; // Add the table name
-    return ss.str(); // Convert the string stream to a string
+
+    return ss.str();
+}
+
+std::wstring select_all_statement::generate_label() const {
+    std::wostringstream ss{};
+
+    ss << L"select_all_" + table;
+
+    return ss.str();
 }
 
 // --------------------
@@ -76,9 +124,19 @@ void filter_statement::set_value(const std::wstring& value) {
 
 std::wstring filter_statement::generate_sql() const {
     std::wostringstream ss{};
-    ss << L"SELECT * FROM " << table << L" WHERE " << column << L' ' << op << L' ' << value << L";"; // Add the table name
-    return ss.str(); // Convert the string stream to a string
+
+    ss << L"SELECT * FROM " + table + L" WHERE " + column + L' ' + op + L' ' + value + L';'; // Add the table name
+
+    return ss.str();
 };
+
+std::wstring filter_statement::generate_label() const {
+    std::wostringstream ss{};
+
+    ss << L"filter_statement";
+
+    return ss.str();
+}
 
 // --------------------
 // END OF FILTER FUNCTIONS
